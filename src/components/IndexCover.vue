@@ -15,10 +15,11 @@
 
 <style scoped>
 .cover {
+  position: sticky;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background: url(https://api.effects.space/bing);
   background-size: cover;
   background-position: center;
