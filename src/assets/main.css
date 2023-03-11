@@ -1,8 +1,39 @@
 @import "./base.css";
 
 #app {
-  height: 100vh;
   width: 100%;
-  margin: 0;
+  padding-top: 10vh;
   font-weight: normal;
+  background-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  #app {
+    background-color: #0d1117;
+  }
+}
+
+#cover {
+  position: sticky;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(https://api.effects.space/bing);
+  background-size: cover;
+  background-position: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  #cover {
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.3)
+      ),
+      url(https://api.effects.space/bing);
+    background-size: cover;
+    background-position: center;
+  }
 }

@@ -1,9 +1,9 @@
 <script setup>
-import IndexCover from "./components/IndexCover.vue"
+import StatusInfo from "./components/StatusInfo.vue"
 </script>
 
 <template>
-  <IndexCover />
+  <StatusInfo />
 </template>
 
 <style scoped></style>
