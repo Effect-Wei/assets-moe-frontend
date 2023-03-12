@@ -1,9 +1,9 @@
 <script setup>
-import StatusInfo from "./components/StatusInfo.vue"
+import StatsInfo from "./components/StatsInfo.vue"
 </script>
 
 <template>
-  <StatusInfo />
+  <StatsInfo />
 </template>
 
 <style scoped></style>

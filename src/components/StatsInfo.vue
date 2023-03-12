@@ -9,7 +9,9 @@ import {
   Legend,
   BarElement,
   CategoryScale,
-  LinearScale
+  LinearScale,
+  LineElement,
+  PointElement
 } from "chart.js"
 
 ChartJS.register(
@@ -19,13 +21,16 @@ ChartJS.register(
   Legend,
   BarElement,
   CategoryScale,
-  LinearScale
+  LinearScale,
+  LineElement,
+  PointElement
 )
 
 const PROMETHEUS_API = "https://prom.assets.moe"
 const state = reactive({
   requestData: [],
   trafficData: [],
+  chartData: [],
   loaded: false
 })
 
@@ -71,41 +76,53 @@ onMounted(async () => {
       state.trafficData = trafficData
     })
 
-  await Promise.all([fetchRequestData, fetchTrafficData]).then(
-    (state.loaded = true)
-  )
+  await Promise.all([fetchRequestData, fetchTrafficData])
+
+  state.chartData = {
+    datasets: [
+      {
+        type: "bar",
+        label: "Traffic",
+        data: state.trafficData,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.2)"
+      },
+      {
+        type: "line",
+        label: "Request",
+        data: state.requestData,
+        borderColor: "rgb(54, 162, 235)"
+      }
+    ]
+  }
+  state.loaded = true
 })
 </script>
 
 <template>
-  <div class="status-container">
-    <div class="status traffic-data">
+  <div class="stats-container">
+    <div class="stats-chart">
       <Bar
         v-if="state.loaded"
-        :data="{
-          datasets: [
-            {
-              label: 'Traffic',
-              data: state.trafficData
-            }
-          ]
-        }"
+        :data="state.chartData"
+        :options="{ maintainAspectRatio: false }"
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-.status-container {
+.stats-container {
   width: 90%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   border: 1px solid #3d3d3d;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
-.status {
-  min-height: 90vw;
+.stats-chart {
+  width: 95%;
+  height: 300px;
 }
 </style>
