@@ -7,31 +7,109 @@ import {
   Title,
   Tooltip,
   Legend,
+  BarController,
   BarElement,
-  CategoryScale,
   LinearScale,
+  LineController,
   LineElement,
-  PointElement
+  PointElement,
+  TimeScale
 } from "chart.js"
+import "chartjs-adapter-luxon"
 
 ChartJS.register(
   Colors,
   Title,
   Tooltip,
   Legend,
+  BarController,
   BarElement,
-  CategoryScale,
   LinearScale,
+  LineController,
   LineElement,
-  PointElement
+  PointElement,
+  TimeScale
 )
 
-const PROMETHEUS_API = "https://prom.assets.moe"
+const PROM_API = "https://prom.assets.moe"
+const PROM_REQUEST_QUERY =
+  'sum(increase(nginx_vts_server_requests_total{host="*.assets.moe"}[1h]))'
+const PROM_TRAFFIC_QUERY =
+  'sum(increase(nginx_vts_server_bytes_total{host="*.assets.moe",direction="out"}[1h]))'
+
 const state = reactive({
-  requestData: [],
-  trafficData: [],
-  chartData: [],
-  loaded: false
+  loaded: false,
+  chartData: {
+    datasets: [
+      {
+        type: "line",
+        label: "Traffic",
+        data: [],
+        yAxisID: "yTraffic",
+        tension: 0.4,
+        pointRadius: 3,
+        borderColor: "rgb(54, 162, 235)"
+      },
+      {
+        type: "bar",
+        label: "Request",
+        data: [],
+        yAxisID: "yRequest",
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.2)"
+      }
+    ]
+  },
+  chartOptions: {
+    maintainAspectRatio: false,
+    elements: {
+      bar: {
+        borderRadius: 3
+      }
+    },
+    interaction: {
+      intersect: false,
+      axis: "x"
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: "Assets.moe Statistics"
+      }
+    },
+    scales: {
+      x: {
+        type: "time",
+        time: {
+          unit: "day",
+          displayFormats: {
+            day: "MMM d"
+          }
+        },
+        offset: true,
+        position: "bottom"
+      },
+      yTraffic: {
+        title: {
+          display: true,
+          text: "Traffic in MBs"
+        },
+        type: "linear",
+        position: "left"
+      },
+      yRequest: {
+        title: {
+          display: true,
+          text: "Number of requests"
+        },
+        type: "linear",
+        position: "right",
+        grid: {
+          drawOnChartArea: false
+        }
+      }
+    }
+  }
 })
 
 onMounted(async () => {
@@ -41,60 +119,41 @@ onMounted(async () => {
       new Date().getMonth(),
       new Date().getDate() - 6
     ).getTime() / 1000
-  let endDate =
-    new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      new Date().getDate() + 1
-    ).getTime() / 1000
-
-  let fetchRequestData = fetch(
-    `${PROMETHEUS_API}/api/v1/query_range?query=sum(nginx_vts_server_requests_total{host="*.assets.moe"})&start=${startDate}&end=${endDate}&step=3600`
-  )
-    .then(async (resp) => {
-      return await resp.json()
-    })
-    .then((respJson) => {
-      let requestData = []
-      for (const value of respJson.data.result[0].values) {
-        requestData.push(value[0])
-      }
-      state.requestData = requestData
-    })
+  let endDate = startDate + 7 * 86400
 
   let fetchTrafficData = fetch(
-    `${PROMETHEUS_API}/api/v1/query_range?query=sum(nginx_vts_server_bytes_total{host="*.assets.moe",direction="out"})&start=${startDate}&end=${endDate}&step=3600`
+    `${PROM_API}/api/v1/query_range?query=${PROM_TRAFFIC_QUERY}&start=${startDate}&end=${endDate}&step=3600`
   )
     .then(async (resp) => {
       return await resp.json()
     })
     .then((respJson) => {
-      let trafficData = []
-      for (const value of respJson.data.result[0].values) {
-        trafficData.push(value[0] / (1024 * 1024 * 1024))
-      }
-      state.trafficData = trafficData
+      let trafficData = respJson.data.result[0].values.map(
+        ([timestamp, value]) => ({
+          x: timestamp * 1000,
+          y: value / (1024 * 1024)
+        })
+      )
+      state.chartData.datasets[0].data = trafficData
     })
 
-  await Promise.all([fetchRequestData, fetchTrafficData])
+  let fetchRequestData = fetch(
+    `${PROM_API}/api/v1/query_range?query=${PROM_REQUEST_QUERY}&start=${startDate}&end=${endDate}&step=3600`
+  )
+    .then(async (resp) => {
+      return await resp.json()
+    })
+    .then((respJson) => {
+      let requestData = respJson.data.result[0].values.map(
+        ([timestamp, value]) => ({
+          x: timestamp * 1000,
+          y: value
+        })
+      )
+      state.chartData.datasets[1].data = requestData
+    })
 
-  state.chartData = {
-    datasets: [
-      {
-        type: "bar",
-        label: "Traffic",
-        data: state.trafficData,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.2)"
-      },
-      {
-        type: "line",
-        label: "Request",
-        data: state.requestData,
-        borderColor: "rgb(54, 162, 235)"
-      }
-    ]
-  }
+  await Promise.all([fetchTrafficData, fetchRequestData])
   state.loaded = true
 })
 </script>
@@ -105,7 +164,7 @@ onMounted(async () => {
       <Bar
         v-if="state.loaded"
         :data="state.chartData"
-        :options="{ maintainAspectRatio: false }"
+        :options="state.chartOptions"
       />
     </div>
   </div>
@@ -123,6 +182,6 @@ onMounted(async () => {
 
 .stats-chart {
   width: 95%;
-  height: 300px;
+  height: 400px;
 }
 </style>
