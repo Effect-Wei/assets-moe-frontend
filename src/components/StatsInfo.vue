@@ -47,16 +47,15 @@ const state = reactive({
         data: [],
         yAxisID: "yTraffic",
         tension: 0.4,
-        pointRadius: 3,
-        borderColor: "rgb(54, 162, 235)"
+        pointRadius: 0,
+        borderColor: "#66ccffdd"
       },
       {
         type: "bar",
         label: "Request",
         data: [],
         yAxisID: "yRequest",
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.2)"
+        backgroundColor: "#ee3333dd"
       }
     ]
   },
@@ -72,40 +71,64 @@ const state = reactive({
       axis: "x"
     },
     plugins: {
+      legend: {
+        labels: {
+          color: "#ddd"
+        }
+      },
       title: {
         display: true,
+        color: "#ddd",
         text: "Assets.moe Statistics"
       }
     },
     scales: {
       x: {
         type: "time",
+        offset: true,
+        position: "bottom",
         time: {
           unit: "day",
           displayFormats: {
             day: "MMM d"
           }
         },
-        offset: true,
-        position: "bottom"
-      },
-      yTraffic: {
-        title: {
-          display: true,
-          text: "Traffic in MBs"
-        },
-        type: "linear",
-        position: "left"
-      },
-      yRequest: {
-        title: {
-          display: true,
-          text: "Number of requests"
-        },
-        type: "linear",
-        position: "right",
         grid: {
           drawOnChartArea: false
+        },
+        ticks: {
+          color: "#ddd"
+        }
+      },
+      yTraffic: {
+        type: "linear",
+        position: "left",
+        title: {
+          display: true,
+          color: "#ddd",
+          text: "Traffic in MBs"
+        },
+        grid: {
+          color: "#ddd",
+          tickColor: "#00000000"
+        },
+        ticks: {
+          color: "#ddd"
+        }
+      },
+      yRequest: {
+        type: "linear",
+        position: "right",
+        title: {
+          display: true,
+          color: "#ddd",
+          text: "Number of requests"
+        },
+        grid: {
+          drawOnChartArea: false
+        },
+        ticks: {
+          color: "#ddd"
         }
       }
     }
@@ -176,8 +199,8 @@ onMounted(async () => {
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  border: 1px solid #3d3d3d;
-  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
 }
 
 .stats-chart {
