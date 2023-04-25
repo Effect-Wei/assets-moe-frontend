@@ -1,9 +1,9 @@
 <script setup>
-import StatsInfo from "./components/StatsInfo.vue"
+import StatsChart from "./components/StatsChart.vue"
 </script>
 
 <template>
-  <StatsInfo />
+  <StatsChart />
 </template>
 
 <style scoped></style>
