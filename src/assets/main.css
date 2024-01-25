@@ -4,17 +4,14 @@
   width: 100%;
   padding-top: 5vh;
   font-weight: normal;
-  background-color: #2c2c2c;
-}
-
-#cover {
   position: sticky;
   height: 100vh;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url(https://api.effects.space/bing);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(https://api.effects.space/bing);
   background-size: cover;
   background-position: center;
 }
