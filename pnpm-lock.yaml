@@ -15,7 +15,7 @@ devDependencies:
     version: 1.2.0
   '@vitejs/plugin-vue':
     specifier: ^5.0.0
-    version: 5.0.1(vite@5.0.12)(vue@3.2.47)
+    version: 5.0.4(vite@5.0.12)(vue@3.2.47)
   '@vue/eslint-config-prettier':
     specifier: ^9.0.0
     version: 9.0.0(eslint@8.34.0)(prettier@3.0.0)
@@ -434,8 +434,8 @@ packages:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
 
-  /@vitejs/plugin-vue@5.0.1(vite@5.0.12)(vue@3.2.47):
-    resolution: {integrity: sha512-lwvZX5tDhJpRJEKsjoUSWgaD26Lk9X4aDYGAPpr/Q6cLTT3PC8LPu2dsnYEweAZiNgHsbyKL2Svc/CDrFOsbtw==}
+  /@vitejs/plugin-vue@5.0.4(vite@5.0.12)(vue@3.2.47):
+    resolution: {integrity: sha512-WS3hevEszI6CEVEx28F8RjTX97k3KsrcY6kvTg7+Whm5y3oYvcqzVeGCU3hxSAn4uY2CLCkeokkGKpoctccilQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0
