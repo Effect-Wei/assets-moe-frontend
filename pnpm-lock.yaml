@@ -17,7 +17,7 @@ importers:
         version: 1.11.0
       '@vitejs/plugin-vue':
         specifier: ^5.0.0
-        version: 5.2.3(vite@6.3.4)(vue@3.5.13)
+        version: 5.2.3(vite@6.3.5)(vue@3.5.13)
       '@vue/eslint-config-prettier':
         specifier: ^10.0.0
         version: 10.2.0(eslint@9.26.0)(prettier@3.5.3)
@@ -32,7 +32,7 @@ importers:
         version: 3.5.3
       vite:
         specifier: ^6.0.0
-        version: 6.3.4
+        version: 6.3.5
 
 packages:
 
@@ -1098,8 +1098,8 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vite@6.3.4:
-    resolution: {integrity: sha512-BiReIiMS2fyFqbqNT/Qqt4CVITDU9M9vE+DKcVAsB+ZV0wvTKd+3hMbkpxz1b+NmEDMegpVbisKiAZOnvO92Sw==}
+  vite@6.3.5:
+    resolution: {integrity: sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -1417,9 +1417,9 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@vitejs/plugin-vue@5.2.3(vite@6.3.4)(vue@3.5.13)':
+  '@vitejs/plugin-vue@5.2.3(vite@6.3.5)(vue@3.5.13)':
     dependencies:
-      vite: 6.3.4
+      vite: 6.3.5
       vue: 3.5.13
 
   '@vue/compiler-core@3.5.13':
@@ -2205,7 +2205,7 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite@6.3.4:
+  vite@6.3.5:
     dependencies:
       esbuild: 0.25.3
       fdir: 6.4.4(picomatch@4.0.2)
