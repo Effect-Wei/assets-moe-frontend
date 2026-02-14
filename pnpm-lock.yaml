@@ -26,7 +26,7 @@ importers:
         version: 10.0.0
       eslint-plugin-vue:
         specifier: ^10.0.0
-        version: 10.7.0(eslint@10.0.0)(vue-eslint-parser@9.4.3(eslint@10.0.0))
+        version: 10.8.0(eslint@10.0.0)(vue-eslint-parser@9.4.3(eslint@10.0.0))
       prettier:
         specifier: ^3.0.0
         version: 3.8.1
@@ -535,13 +535,13 @@ packages:
       eslint-config-prettier:
         optional: true
 
-  eslint-plugin-vue@10.7.0:
-    resolution: {integrity: sha512-r2XFCK4qlo1sxEoAMIoTTX0PZAdla0JJDt1fmYiworZUX67WeEGqm+JbyAg3M+pGiJ5U6Mp5WQbontXWtIW7TA==}
+  eslint-plugin-vue@10.8.0:
+    resolution: {integrity: sha512-f1J/tcbnrpgC8suPN5AtdJ5MQjuXbSU9pGRSSYAuF3SHoiYCOdEX6O22pLaRyLHXvDcOe+O5ENgc1owQ587agA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       '@stylistic/eslint-plugin': ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
       '@typescript-eslint/parser': ^7.0.0 || ^8.0.0
-      eslint: ^8.57.0 || ^9.0.0
+      eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
       vue-eslint-parser: ^10.0.0
     peerDependenciesMeta:
       '@stylistic/eslint-plugin':
@@ -765,11 +765,6 @@ packages:
   rollup@4.55.1:
     resolution: {integrity: sha512-wDv/Ht1BNHB4upNbK74s9usvl7hObDnvVzknxqY/E/O3X6rW1U1rV1aENEfJ54eFZDTNo7zv1f5N4edCluH7+A==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
-    hasBin: true
-
-  semver@7.7.3:
-    resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
-    engines: {node: '>=10'}
     hasBin: true
 
   semver@7.7.4:
@@ -1253,14 +1248,14 @@ snapshots:
     optionalDependencies:
       eslint-config-prettier: 10.0.1(eslint@10.0.0)
 
-  eslint-plugin-vue@10.7.0(eslint@10.0.0)(vue-eslint-parser@9.4.3(eslint@10.0.0)):
+  eslint-plugin-vue@10.8.0(eslint@10.0.0)(vue-eslint-parser@9.4.3(eslint@10.0.0)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@10.0.0)
       eslint: 10.0.0
       natural-compare: 1.4.0
       nth-check: 2.1.1
       postcss-selector-parser: 7.1.1
-      semver: 7.7.3
+      semver: 7.7.4
       vue-eslint-parser: 9.4.3(eslint@10.0.0)
       xml-name-validator: 4.0.0
 
@@ -1503,8 +1498,6 @@ snapshots:
       '@rollup/rollup-win32-x64-gnu': 4.55.1
       '@rollup/rollup-win32-x64-msvc': 4.55.1
       fsevents: 2.3.3
-
-  semver@7.7.3: {}
 
   semver@7.7.4: {}
 
